@@ -9,17 +9,17 @@ const router = express.Router()
 
 router.get('/', csrfProtection, (req, res, next) => {
     const query = url.parse(req.url, true).query
-    const challenge = String(query.login_challenge)
-    if (!challenge) {
+    const challenge = query.login_challenge
+    if (typeof challenge == 'undefined') {
         next(new Error('Expected a login challenge to be set but received none.'))
         return
+    } else {
+        res.render('login', {
+            csrfToken: req.csrfToken(),
+            challenge: challenge,
+            action: urljoin(process.env.BASE_URL || '', '/login'),
+        })
     }
-
-    res.render('login', {
-        csrfToken: req.csrfToken(),
-        challenge: challenge,
-        action: urljoin(process.env.BASE_URL || '', '/login'),
-    })
 })
 
 
@@ -31,8 +31,9 @@ router.post('/', csrfProtection, async (req, res, next) => {
         //reject
     } else {
         try {
-            const res = await services.accept(challenge, cif)
-            res.redirect(res.redirect_url);
+            const response = await services.accept(challenge, cif)
+            console.log(response)
+            res.redirect(response.redirect_url);
         } catch (err) {
             next(err)
         }

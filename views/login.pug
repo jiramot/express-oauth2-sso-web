@@ -4,11 +4,10 @@ block content
     h1(id="login-title") Please log in
     if error
         p.
-            #{error}
+            #{error.message}
     form(action=action, method="POST")
         input(type="hidden", name="_csrf", value=csrfToken)
         input(type="hidden", name="challenge", value=challenge)
         input(type="cif", id="cif", name="cif", value=CIF, placeholder="CIF")
-        br
         input(type="submit", id="accept", name="submit", value="Log in")
-        input(type="submit", id="reject", name="submit", value="Deny access")
+//-         input(type="submit", id="reject", name="submit", value="Deny access")

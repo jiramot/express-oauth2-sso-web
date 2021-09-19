@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "serve": "node lib/app.js",
     "start": "ts-node-dev --watch public,views --respawn src/app.ts"
   },
   "repository": {

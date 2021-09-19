@@ -33,7 +33,8 @@ app.use((req, res, next) => {
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).render('error', {
-        message: JSON.stringify(err, null, 2)
+        message: err.message,
+        error: {}
     })
 })
 
