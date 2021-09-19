@@ -1,5 +1,6 @@
 FROM node:14.15-alpine3.12
 
+LABEL org.opencontainers.image.source="ghcr.io/jiramot/express-oauth2-sso-web"
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
