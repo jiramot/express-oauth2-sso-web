@@ -9,12 +9,14 @@ import login from './routes/login'
 // import logout from './routes/logout'
 // import consent from './routes/consent'
 
+import securityHeader from "./middleware/response_header";
 const app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, '..', 'views'))
 app.set('view engine', 'pug')
 
+app.use(securityHeader)
 app.use('/favicon.ico', express.static('public/favicon.ico'));
 app.use(logger('dev'))
 app.use(bodyParser.json())
